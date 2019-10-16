@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const dbConfig = require('./src/config/DB');
+const fetch = require('./src/helpers/fetchData')
 const app = express();
 
 const PORT = process.env.PORT || 5000
@@ -23,6 +24,20 @@ mongoose.connect(dbConfig.URL, { useUnifiedTopology: true, useNewUrlParser: true
     }
 }
 );
+const city = require('./src/helpers/cities')
+
+// setTimeout(() => {
+//     city.city.forEach(element => {
+//         console.log(element)
+//         fetch.fetch(element.name)
+//     });
+// }, 1000);
+
+
+
+const getWeatherRouter = require('./src/routes/getWeather');
+
+app.use('/api', getWeatherRouter)
 
 
 app.listen(PORT, () => {
