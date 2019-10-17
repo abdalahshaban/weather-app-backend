@@ -10,8 +10,8 @@ const citySchema = new Schema({
     speedOfWind: { type: Number },
     degOfWind: { type: Number },
     country: { type: String },
-    sunrise: { type: Date },
-    sunset: { type: Date }
+    sunrise: { type: String },
+    sunset: { type: String }
 
 });
 
