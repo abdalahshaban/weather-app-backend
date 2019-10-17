@@ -33,12 +33,11 @@ mongoose.connect(dbConfig.URL, { useUnifiedTopology: true, useNewUrlParser: true
 );
 const city = require('./src/helpers/cities')
 
-// setTimeout(() => {
-//     city.city.forEach(element => {
-//         console.log(element)
-//         fetch.fetch(element.name)
-//     });
-// }, 1000);
+setInterval(() => {
+    city.city.forEach(element => {
+        fetch.fetch(element.name)
+    });
+}, 3000 * 60 * 60);
 
 
 

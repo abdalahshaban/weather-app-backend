@@ -13,12 +13,9 @@ const helper = require('../helpers/fetchData')
 
 
 weatherCtrl.getData = async (req, res) => {
-    // console.log(req.body)
     let { city } = req.body
-    city = city.charAt(0).toLowerCase() + city.slice(1)
 
     await helper.fetch(city).then(data => {
-        // console.log(data, 'in ctrl');
         return res.json({ message: data });
     })
 }
