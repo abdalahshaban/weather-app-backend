@@ -15,9 +15,19 @@ const helper = require('../helpers/fetchData')
 weatherCtrl.getData = async (req, res) => {
     let { city } = req.body
 
-    await helper.fetch(city).then(data => {
-        return res.json({ message: data });
+    city = city.toLowerCase()
+    await cityModel.findOne({ name: city }).then(async result => {
+        if (result) {
+            return res.json({ message: result });
+        }
+        else {
+            await helper.fetch(city).then(data => {
+                return res.json({ message: data });
+            })
+        }
     })
+
+
 }
 
 

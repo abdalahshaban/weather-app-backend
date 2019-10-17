@@ -23,25 +23,31 @@ module.exports = {
                     speedOfWind: response.data.wind.speed,
                     degOfWind: response.data.wind.deg,
                     country: response.data.sys.country,
-                    sunrise: response.data.sys.sunrise,
-                    sunset: response.data.sys.sunset
+                    sunrise: new Date(response.data.sys.sunrise * 1000),
+                    sunset: new Date(response.data.sys.sunset * 1000)
                 }
 
-                await cityModel.findOne({ name: doc.name }).then(result => {
-                    if (result) {
-                        cityModel.updateOne({ _id: result._id }, doc, (err, raw) => {
-                            if (!err) {
-                                console.log(`updated ${city}`)
-
-                            }
-                        })
-                    } else {
-                        cityModel.create(doc, () => {
-                            console.log(`save ${city}`)
-
-                        })
-                    }
+                await cityModel.create(doc).then(result => {
+                    console.log(`save ${city}`)
+                }).catch(err => {
+                    console.log(err);
                 })
+
+                // await cityModel.findOne({ name: doc.name }).then(result => {
+                //     if (result) {
+                //         cityModel.updateOne({ _id: result._id }, doc, (err, raw) => {
+                //             if (!err) {
+                //                 console.log(`updated ${city}`)
+
+                //             }
+                //         })
+                //     } else {
+                //         cityModel.create(doc, () => {
+                //             console.log(`save ${city}`)
+
+                //         })
+                //     }
+                // })
                 return doc
             }
         }).catch(err => {
